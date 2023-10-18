@@ -1,19 +1,22 @@
 .category {
-  border: 1px solid #000;
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
-  padding: 20px 10px;
+  @include flex(center, center, column);
+  padding: 2rem 1rem;
+  min-height: 30rem;
+  &:hover {
+    cursor: pointer;
+  }
   &__container {
-    padding: 10px 20px;
+    padding: 1rem 2rem;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: $light_white;
+    &:hover {
+      background-color: $white;
+    }
   }
   &__title {
     text-transform: capitalize;
-    font-size: 22px;
-    margin-bottom: 5px;
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
   }
 
   &:first-child {

@@ -1,6 +1,5 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { CategoryType } from "../../types";
-import './style.scss'
 interface Props {
   category: CategoryType;
 }
@@ -11,6 +10,7 @@ export const Category: FC<Props> = ({ category }) => {
       className="category"
       style={{
         backgroundImage: `url(${imageUrl})`,
+        backgroundSize: "cover",
         objectFit: "cover",
       }}
     >

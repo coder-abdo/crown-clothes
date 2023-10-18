@@ -1,0 +1,16 @@
+:root {
+  font-family: $font_family;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  font-size: $BASE_FONT_SIZE;
+}
+:is(a, a:active, a:focus) {
+  text-decoration: none;
+  color: inherit;
+}
+:is(ol, ul, li) {
+  list-style: none;
+}

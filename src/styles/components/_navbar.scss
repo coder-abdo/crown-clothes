@@ -1,0 +1,19 @@
+.nav {
+  @include flex(space-between, center);
+  padding: 1.5rem 2rem;
+  padding-left: 3rem;
+  color: $black;
+  text-transform: capitalize;
+  &__logo {
+    font-size: 2rem;
+  }
+  &__list {
+    @include flex;
+    gap: 2rem;
+  }
+  .list {
+    &__item {
+      font-size: 1.8rem;
+    }
+  }
+}
