@@ -1,3 +1,4 @@
+import { SignUp } from "../../components/signup";
 import {
   createUserFromAuth,
   signInWithGooglePopup,
@@ -12,6 +13,7 @@ const SignIn = () => {
     <div>
       SignIn
       <button onClick={signInWithGoogle}>sign in with google</button>
+      <SignUp />
     </div>
   );
 };
