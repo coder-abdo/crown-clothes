@@ -6,6 +6,7 @@ import {
   getAuth,
   signInWithPopup,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { doc, getDoc, setDoc, getFirestore } from "firebase/firestore";
 const firebaseConfig = {
@@ -54,5 +55,12 @@ export const createUserFromEmailAndPassword = async (
   password: string,
 ) => {
   const { user } = await createUserWithEmailAndPassword(auth, email, password);
+  return user;
+};
+export const loginWithEmailAndPassword = async (
+  email: string,
+  password: string,
+) => {
+  const { user } = await signInWithEmailAndPassword(auth, email, password);
   return user;
 };

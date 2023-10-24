@@ -1,4 +1,5 @@
 import { useSignupForm } from "../../hooks/useSignupForm";
+import { FormControl } from "../forms/formContainer";
 
 export const SignUp = () => {
   const { errors, register, handleSignUp, handleSubmit } = useSignupForm();
@@ -11,48 +12,58 @@ export const SignUp = () => {
         noValidate
         onSubmit={handleSubmit(handleSignUp)}
       >
-        <div>
-          <label htmlFor="displayName">Name</label>
+        <FormControl
+          label="display name"
+          isError={!!errors.email}
+          message={errors.email?.message}
+        >
           <input
             type="text"
-            placeholder="Enter Your Name"
+            placeholder="display name"
             id="displayName"
+            className="form-input"
             {...register("displayName")}
           />
-          {errors.displayName && <p>{errors.displayName.message}</p>}
-        </div>
-        <div>
-          <label htmlFor="email">email</label>
+        </FormControl>
+        <FormControl
+          label="email"
+          isError={!!errors.email}
+          message={errors.email?.message}
+        >
           <input
             type="email"
+            placeholder="email"
             id="email"
             {...register("email")}
-            placeholder="Enter Your Email"
+            className="form-input"
           />
-
-          {errors.email && <p>{errors.email.message}</p>}
-        </div>
-        <div>
-          <label htmlFor="password">password</label>
+        </FormControl>
+        <FormControl
+          label="password"
+          isError={!!errors.password}
+          message={errors.password?.message}
+        >
           <input
             type="password"
+            placeholder="password"
             id="password"
+            className="form-input"
             {...register("password")}
-            placeholder="Enter Your Password"
           />
-
-          {errors.password && <p>{errors.password.message}</p>}
-        </div>
-        <div>
-          <label htmlFor="confirmPassword">password</label>
+        </FormControl>
+        <FormControl
+          label="confirm password"
+          isError={!!errors.confirmPassword}
+          message={errors.confirmPassword?.message}
+        >
           <input
             type="password"
+            placeholder="confirm password"
             id="confirmPassword"
             {...register("confirmPassword")}
-            placeholder="Enter Your Confirm Password"
+            className="form-input"
           />
-          {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
-        </div>
+        </FormControl>
         <button type="submit">Sign Up</button>
       </form>
     </div>

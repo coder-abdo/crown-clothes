@@ -8,9 +8,10 @@ import {
 } from "../utils/firebase";
 import { FirebaseError } from "firebase/app";
 import toast from "react-hot-toast";
-import { FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 export const useSignupForm = () => {
   const ALREADYEXISTEMAILERR = "auth/email-already-in-use";
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -28,6 +29,7 @@ export const useSignupForm = () => {
       );
       await createUserFromAuth(user, { displayName: data.displayName });
       toast.success("success created user");
+      navigate("/");
     } catch (error) {
       if (error instanceof FirebaseError) {
         if (error.code === ALREADYEXISTEMAILERR) {

@@ -1,19 +1,21 @@
+import { useCallback, useState } from "react";
 import { SignUp } from "../../components/signup";
-import {
-  createUserFromAuth,
-  signInWithGooglePopup,
-} from "../../utils/firebase";
+
+import { SignInForm } from "../../components/signin";
 
 const SignIn = () => {
-  const signInWithGoogle = async () => {
-    const result = await signInWithGooglePopup();
-    createUserFromAuth(result.user);
-  };
+  const [isSignup, setIsSignup] = useState(false);
+
+  const toggleSignIn = useCallback(() => {
+    setIsSignup((prev) => !prev);
+  }, []);
   return (
     <div>
-      SignIn
-      <button onClick={signInWithGoogle}>sign in with google</button>
-      <SignUp />
+      <h1>{isSignup ? "welcome back" : "sign up"}</h1>
+      {isSignup ? <SignUp /> : <SignInForm />}
+      <a role="button" rel="noopener noreferrer" onClick={toggleSignIn}>
+        {isSignup ? "already have an account?" : "have not yet an account?"}
+      </a>
     </div>
   );
 };

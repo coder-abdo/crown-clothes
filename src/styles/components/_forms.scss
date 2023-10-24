@@ -1,0 +1,48 @@
+.form-control {
+  margin-top: 4rem;
+  position: relative;
+
+  &:is(:not(last-child)) {
+    margin-bottom: 4rem;
+  }
+}
+.label {
+  font-size: 1.7rem;
+  text-transform: capitalize;
+  transition: all 0.3s ease-in-out;
+}
+.form-input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid $black;
+  &::placeholder {
+    font-size: 1.4rem;
+    text-transform: capitalize;
+  }
+  &:is(:focus) {
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+  &:is(:focus, :not(empty)) ~ .label {
+    position: absolute;
+    top: -1.5rem;
+    left: 0;
+    font-size: 1.4rem;
+    opacity: 1;
+    visibility: visible;
+  }
+  &:not(:focus) ~ .label {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+.btns-group {
+  @include flex;
+  gap: 1rem;
+}
