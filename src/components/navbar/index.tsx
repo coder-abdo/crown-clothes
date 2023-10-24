@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import Crown from "../../assets/crown.svg";
+import Crown from "../../assets/crown.png";
 const Navbar = () => {
   return (
     <nav className="nav">

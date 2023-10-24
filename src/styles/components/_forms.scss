@@ -1,3 +1,9 @@
+.form {
+  max-width: 50rem;
+  width: 100%;
+  place-items: center;
+  margin: 0 auto;
+}
 .form-control {
   margin-top: 4rem;
   position: relative;
@@ -17,6 +23,7 @@
   background-color: transparent;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid $black;
+  width: 100%;
   &::placeholder {
     font-size: 1.4rem;
     text-transform: capitalize;
@@ -43,6 +50,6 @@
   }
 }
 .btns-group {
-  @include flex;
+  @include flex(center);
   gap: 1rem;
 }

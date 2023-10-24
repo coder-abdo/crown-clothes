@@ -5,7 +5,7 @@ export const SignInForm = () => {
   const { handleLogin, handleSubmit, errors, register, signInWithGoogle } =
     useSignInForm();
   return (
-    <form onSubmit={handleSubmit(handleLogin)} noValidate>
+    <form className="form" onSubmit={handleSubmit(handleLogin)} noValidate>
       <FormControl
         label="email"
         isError={!!errors.email}

@@ -7,10 +7,57 @@
   -webkit-text-size-adjust: 100%;
   font-size: $BASE_FONT_SIZE;
 }
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 :is(a, a:active, a:focus) {
   text-decoration: none;
   color: inherit;
 }
 :is(ol, ul, li) {
   list-style: none;
+}
+.btn {
+  background-color: transparent;
+  border: 1px solid $yellow;
+  padding: 10px 20px;
+  border-radius: 3px;
+  font-size: 14px;
+  text-transform: capitalize;
+  font-weight: 600;
+  transition: {
+    property: background-color;
+    duration: 0.3s;
+    timing-function: ease-in-out;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: $gray;
+  }
+  &__with-icon {
+    @include flex(flex-start, center, row);
+    gap: 4px;
+    background-color: $yellow;
+    color: $black;
+    transition: {
+      property: background-color, color;
+      duration: 0.3s;
+      timing-function: ease-in-out;
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: $black;
+      color: $yellow;
+    }
+
+    .icon {
+      width: 14px;
+      object-fit: cover;
+    }
+  }
 }

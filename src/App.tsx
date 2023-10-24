@@ -3,7 +3,7 @@ import Root from "./components/outlet";
 import Home from "./pages/home";
 import ErrorPage from "./pages/errorPage";
 import Shop from "./pages/shop";
-import SignIn from "./pages/singIn";
+import Auth from "./pages/auth";
 function App() {
   const router = createBrowserRouter([
     {
@@ -21,7 +21,7 @@ function App() {
         },
         {
           path: "sign-in",
-          element: <SignIn />,
+          element: <Auth />,
         },
       ],
     },

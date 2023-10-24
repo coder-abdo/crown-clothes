@@ -2,33 +2,4 @@
 @import "./styles/components/category";
 @import "./styles/components/navbar";
 @import "./styles/components/forms";
-.btn {
-  background-color: transparent;
-  border: 1px solid #000;
-  padding: 10px 20px;
-  border-radius: 3px;
-  font-size: 14px;
-  &:hover {
-    cursor: pointer;
-  }
-  &__with-icon {
-    @include flex(flex-start, center, row);
-    gap: 4px;
-    background-color: $black;
-    color: $white;
-    transition: {
-      property: background-color, color;
-      duration: 0.3s;
-      timing-function: ease-in-out;
-    }
-    &:hover {
-      cursor: pointer;
-      background-color: $white;
-      color: $black;
-    }
-    .icon {
-      width: 12px;
-      object-fit: cover;
-    }
-  }
-}
+@import "./styles/pages/auth";
