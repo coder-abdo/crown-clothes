@@ -4,6 +4,7 @@ import Home from "./pages/home";
 import ErrorPage from "./pages/errorPage";
 import Shop from "./pages/shop";
 import Auth from "./pages/auth";
+import UserProvider from "./contexts/userContext";
 function App() {
   const router = createBrowserRouter([
     {
@@ -26,7 +27,11 @@ function App() {
       ],
     },
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
+  );
 }
 
 export default App;
