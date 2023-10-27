@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
-import { SignUp } from "../../components/signup";
+import { SignUp } from "@/components/signup";
 
-import { SignInForm } from "../../components/signin";
+import { SignInForm } from "@/components/signin";
 
 const SignIn = () => {
   const [isSignup, setIsSignup] = useState(false);

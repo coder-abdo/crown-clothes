@@ -15,6 +15,7 @@
   .list {
     &__item {
       font-size: 1.8rem;
+      cursor: pointer;
       transition: {
         property: color;
         duration: 0.3s;

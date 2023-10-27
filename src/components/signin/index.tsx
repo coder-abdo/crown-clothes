@@ -1,6 +1,6 @@
-import { useSignInForm } from "../../hooks/useSignInForm";
-import { FormControl } from "../forms/formContainer";
-import GoogleIcon from "../../assets/google.png";
+import { useSignInForm } from "@/hooks/useSignInForm";
+import { FormControl } from "@/components/forms/formContainer";
+import GoogleIcon from "@/assets/google.png";
 export const SignInForm = () => {
   const { handleLogin, handleSubmit, errors, register, signInWithGoogle } =
     useSignInForm();

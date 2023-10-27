@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { CategoryType } from "../../types";
+import { CategoryType } from "@/types";
 interface Props {
   category: CategoryType;
 }

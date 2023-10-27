@@ -1,6 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
-import Crown from "../../assets/crown.png";
+import Crown from "@/assets/crown.png";
+import { useCurrentUser } from "@/contexts/userContext";
+import { signoutUser } from "@/utils/firebase";
 const Navbar = () => {
+  const { currentUser, setCurrentUser } = useCurrentUser();
+  const handleSignout = async () => {
+    console.log("clicked");
+    await signoutUser();
+    setCurrentUser(null);
+    console.log(currentUser)
+  };
   return (
     <nav className="nav">
       <div className="nav__logo">
@@ -15,9 +24,15 @@ const Navbar = () => {
         <li className="list__item">
           <NavLink to={"/contact"}>Contact</NavLink>
         </li>
-        <li className="list__item">
-          <NavLink to={"/sign-in"}>Sign In</NavLink>
-        </li>
+        {!currentUser ? (
+          <li className="list__item">
+            <NavLink to={"/sign-in"}>Sign In</NavLink>
+          </li>
+        ) : (
+          <li className="list__item" onClick={handleSignout}>
+            Logout
+          </li>
+        )}
         <li className="list__item">
           <NavLink to={"/cart"}>cart</NavLink>
         </li>

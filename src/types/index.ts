@@ -1,10 +1,12 @@
+import { User } from "firebase/auth";
+import { Dispatch } from "react";
 export type CategoryType = {
   id: number;
   title: string;
   imageUrl: string;
 };
 
-export interface IUser {
-  displayName: string;
-  email: string;
+export interface IContext {
+  currentUser: User | null;
+  setCurrentUser: Dispatch<User | null>;
 }

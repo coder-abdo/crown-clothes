@@ -1,5 +1,5 @@
-import { useSignupForm } from "../../hooks/useSignupForm";
-import { FormControl } from "../forms/formContainer";
+import { useSignupForm } from "@/hooks/useSignupForm";
+import { FormControl } from "@/components/forms/formContainer";
 
 export const SignUp = () => {
   const { errors, register, handleSignUp, handleSubmit } = useSignupForm();

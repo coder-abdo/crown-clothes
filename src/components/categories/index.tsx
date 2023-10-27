@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { CategoryType } from "../../types";
-import { Category } from "../category";
+import { CategoryType } from "@/types";
+import { Category } from "@/components/category";
 interface Props {
   categories: CategoryType[];
 }

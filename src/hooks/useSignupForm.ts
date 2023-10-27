@@ -1,16 +1,19 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { signupSchema } from "../utils/forms";
 import { z } from "zod";
-import {
-  createUserFromAuth,
-  createUserFromEmailAndPassword,
-} from "../utils/firebase";
 import { FirebaseError } from "firebase/app";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { signupSchema } from "@/utils/forms";
+import {
+  createUserFromAuth,
+  createUserFromEmailAndPassword,
+} from "@/utils/firebase";
+import { useCurrentUser } from "@/contexts/userContext";
+
 export const useSignupForm = () => {
   const ALREADYEXISTEMAILERR = "auth/email-already-in-use";
+  const { setCurrentUser } = useCurrentUser();
   const navigate = useNavigate();
   const {
     register,
@@ -28,6 +31,7 @@ export const useSignupForm = () => {
         data.password,
       );
       await createUserFromAuth(user, { displayName: data.displayName });
+      setCurrentUser({ ...user, displayName: data.displayName });
       toast.success("success created user");
       navigate("/");
     } catch (error) {

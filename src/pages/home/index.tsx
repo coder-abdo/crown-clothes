@@ -1,5 +1,5 @@
-import { Categories } from "../../components/categories";
-import { categories } from "../../utils";
+import { Categories } from "@/components/categories";
+import { categories } from "@/utils";
 
 function Home() {
   return <Categories categories={categories} />;
