@@ -11,18 +11,14 @@ import {
 } from "@/utils/firebase";
 import { signInSchema } from "@/utils/forms";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCurrentUser } from "@/contexts/userContext";
 
 export const useSignInForm = () => {
   const INVALIDPASSWORD = AuthErrorCodes.INVALID_PASSWORD;
   const INVALIDUSER = AuthErrorCodes.USER_DELETED;
   const INVALID_LOGIN_CREDENTIALS = "auth/invalid-login-credentials";
-  const { setCurrentUser } = useCurrentUser();
   const navigate = useNavigate();
   const signInWithGoogle = async () => {
-    const result = await signInWithGooglePopup();
-    createUserFromAuth(result.user);
-    setCurrentUser(result.user);
+     await signInWithGooglePopup();
     toast.success("success login with google");
     navigate("/");
   };
@@ -37,8 +33,7 @@ export const useSignInForm = () => {
     data,
   ) => {
     try {
-      const user = await loginWithEmailAndPassword(data.email, data.password);
-    setCurrentUser(user);
+      await loginWithEmailAndPassword(data.email, data.password);
       toast.success("success login");
       navigate("/");
     } catch (error) {

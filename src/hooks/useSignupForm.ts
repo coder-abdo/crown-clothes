@@ -9,11 +9,9 @@ import {
   createUserFromAuth,
   createUserFromEmailAndPassword,
 } from "@/utils/firebase";
-import { useCurrentUser } from "@/contexts/userContext";
 
 export const useSignupForm = () => {
   const ALREADYEXISTEMAILERR = "auth/email-already-in-use";
-  const { setCurrentUser } = useCurrentUser();
   const navigate = useNavigate();
   const {
     register,
@@ -31,7 +29,6 @@ export const useSignupForm = () => {
         data.password,
       );
       await createUserFromAuth(user, { displayName: data.displayName });
-      setCurrentUser({ ...user, displayName: data.displayName });
       toast.success("success created user");
       navigate("/");
     } catch (error) {
