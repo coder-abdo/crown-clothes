@@ -5,6 +5,7 @@ import ErrorPage from "./pages/errorPage";
 import Shop from "./pages/shop";
 import Auth from "./pages/auth";
 import UserProvider from "./contexts/userContext";
+import ShopContextProvider from "./contexts/shopContext";
 function App() {
   const router = createBrowserRouter([
     {
@@ -29,7 +30,9 @@ function App() {
   ]);
   return (
     <UserProvider>
-      <RouterProvider router={router} />
+      <ShopContextProvider>
+        <RouterProvider router={router} />
+      </ShopContextProvider>
     </UserProvider>
   );
 }
