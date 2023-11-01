@@ -2,6 +2,8 @@ import { Link, NavLink } from "react-router-dom";
 import Crown from "@/assets/crown.png";
 import { useCurrentUser } from "@/contexts/userContext";
 import { signoutUser } from "@/utils/firebase";
+import { CartIcon } from "@/components/cart/cartIcon";
+import { CartDropDownMenu } from "@/components/cart/cartDropDownMenu";
 const Navbar = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const handleSignout = async () => {
@@ -34,7 +36,11 @@ const Navbar = () => {
         <li className="list__item">
           <NavLink to={"/cart"}>cart</NavLink>
         </li>
+        <li className="list__item">
+          <CartIcon />
+        </li>
       </ul>
+      <CartDropDownMenu />
     </nav>
   );
 };

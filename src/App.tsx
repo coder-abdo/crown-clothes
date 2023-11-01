@@ -6,6 +6,7 @@ import Shop from "./pages/shop";
 import Auth from "./pages/auth";
 import UserProvider from "./contexts/userContext";
 import ShopContextProvider from "./contexts/shopContext";
+import CartMenuProvider from "./contexts/cartDropDownMenuContext";
 function App() {
   const router = createBrowserRouter([
     {
@@ -31,7 +32,9 @@ function App() {
   return (
     <UserProvider>
       <ShopContextProvider>
-        <RouterProvider router={router} />
+        <CartMenuProvider>
+          <RouterProvider router={router} />
+        </CartMenuProvider>
       </ShopContextProvider>
     </UserProvider>
   );

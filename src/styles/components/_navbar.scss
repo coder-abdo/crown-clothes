@@ -1,5 +1,7 @@
 .nav {
   @include flex(space-between, center);
+  position: sticky;
+  top: 0;
   padding: 1.5rem 2rem;
   padding-left: 3rem;
   background-color: $black;
@@ -13,9 +15,11 @@
     gap: 2rem;
   }
   .list {
+    @include flex(flex-start, center, row);
     &__item {
       font-size: 1.8rem;
       cursor: pointer;
+
       transition: {
         property: color;
         duration: 0.3s;

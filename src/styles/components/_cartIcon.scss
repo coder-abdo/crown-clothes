@@ -1,0 +1,13 @@
+.cart-icon {
+  position: relative;
+  width: 4rem;
+  &__icon {
+    width: 100%;
+  }
+  &__quantity {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

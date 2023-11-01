@@ -4,3 +4,12 @@
   align-items: $ai;
   flex-direction: $dir;
 }
+@mixin transition($dur: 0.3s, $timfunc: ease-in-out, $props...) {
+  transition: {
+    @each $val in $props {
+      property: $val;
+    }
+    duration: $dur;
+    timing-function: $timfunc;
+  }
+}

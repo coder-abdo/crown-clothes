@@ -1,0 +1,25 @@
+.cart-dropdownmenu {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+  right: 0.5rem;
+  min-height: 25rem;
+  border: 2px solid $black;
+  min-width: 25rem;
+  background-color: $white;
+  @include flex(space-between, center, column);
+  z-index: 10;
+  padding: 1rem;
+  @include transition(0.3s, ease-in-out, opacity visibility);
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  .cart-list {
+    flex: 1;
+  }
+  button {
+    width: 100%;
+  }
+}

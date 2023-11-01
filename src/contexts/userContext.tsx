@@ -6,14 +6,14 @@ import {
   useEffect,
   useState,
 } from "react";
-import { IContext } from "@/types";
+import { IUserContext } from "@/types";
 import { User } from "firebase/auth";
 import { createUserFromAuth, handleAuthChange } from "@/utils/firebase";
 interface Props {
   children: ReactNode;
 }
 
-const UserContext = createContext<IContext>({
+const UserContext = createContext<IUserContext>({
   currentUser: null,
   setCurrentUser: () => null,
 });

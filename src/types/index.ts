@@ -1,21 +1,26 @@
 import { User } from "firebase/auth";
 import { Dispatch } from "react";
-export type CategoryType = {
+ type CategoryType = {
   id: number;
   title: string;
   imageUrl: string;
 };
-export interface IShopProduct {
+ interface IShopProduct {
   id: number;
   imageUrl: string;
   name: string;
   price: number;
 }
-export interface IShopContext {
+ interface IShopContext {
   shopProducts: IShopProduct[];
   setShopProducts: Dispatch<IShopProduct[]>;
 }
-export interface IContext {
+ interface IUserContext {
   currentUser: User | null;
   setCurrentUser: Dispatch<User | null>;
 }
+interface ICartMenuContext {
+  isOpen: boolean;
+  setIsOpen: Dispatch<boolean>;
+}
+export type {IUserContext, IShopContext, IShopProduct, CategoryType, ICartMenuContext}
