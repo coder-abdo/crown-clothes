@@ -1,10 +1,11 @@
 import { useToggleCartMenu } from "@/contexts/cartDropDownMenuContext";
+import { CartItems } from "@/components/cart/cartItems";
 
 export const CartDropDownMenu = () => {
-  const { isOpen } = useToggleCartMenu();
+  const { isOpen, cartItems } = useToggleCartMenu();
   return (
     <div className={`cart-dropdownmenu ${isOpen ? "show" : ""}`}>
-      <ul className="cart-list"></ul>
+      <CartItems cartItems={cartItems} />
       <button className="btn">add to cart</button>
     </div>
   );

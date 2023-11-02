@@ -1,4 +1,4 @@
-import { CategoryType } from "@/types";
+import { CategoryType, ICartItem } from "@/types";
 
 export const categories: CategoryType[] = [
   {
@@ -27,3 +27,23 @@ export const categories: CategoryType[] = [
     imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
   },
 ];
+
+export const addToCartItems = (
+  cartItems: ICartItem[],
+  cartItem: ICartItem,
+): ICartItem[] => {
+  // if cart item is existed
+  const existedCartItem = cartItems.find((item) => item.id === cartItem.id);
+  if (existedCartItem) {
+    return cartItems.map((item) => {
+      if (item.id === cartItem.id) {
+        return { ...item, quantity: item.quantity + 1 };
+      } else {
+        return item;
+      }
+    });
+  }
+
+  // else
+  return [...cartItems, { ...cartItem, quantity: 1 }];
+};

@@ -13,10 +13,7 @@ interface Props {
   children: ReactNode;
 }
 
-const UserContext = createContext<IUserContext>({
-  currentUser: null,
-  setCurrentUser: () => null,
-});
+const UserContext = createContext<IUserContext | null>(null);
 
 const UserProvider: FC<Props> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
