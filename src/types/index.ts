@@ -25,6 +25,9 @@ interface ICartMenuContext {
   cartItems: ICartItem[];
   setCartItems: Dispatch<ICartItem[]>;
   addToCart: (cartItem: ICartItem) => void;
+  cartCount: number;
+  removeItemFromCart: (cartItem: ICartItem) => void;
+  totalCartPrice: number;
 }
 interface ICartItem extends IShopProduct {
   quantity: number;

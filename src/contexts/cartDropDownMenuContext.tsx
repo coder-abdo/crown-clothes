@@ -1,6 +1,13 @@
 import { ICartItem, ICartMenuContext } from "@/types";
-import { addToCartItems } from "@/utils";
-import { FC, ReactNode, createContext, useContext, useState } from "react";
+import { addToCartItems, removeItem } from "@/utils";
+import {
+  FC,
+  ReactNode,
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
 const CartDropDownMenuContext = createContext<ICartMenuContext>({
   isOpen: false,
@@ -8,6 +15,16 @@ const CartDropDownMenuContext = createContext<ICartMenuContext>({
   cartItems: [],
   setCartItems: () => {},
   addToCart: (cartItem: ICartItem) => {
+    console.log(cartItem);
+  },
+  cartCount: 0,
+  removeItemFromCart: (item: ICartItem) => {
+    console.log(item);
+  },
+  increaseQuantity: (cartItem: ICartItem) => {
+    console.log(cartItem);
+  },
+  decreaseQuantity: (cartItem: ICartItem) => {
     console.log(cartItem);
   },
 });
@@ -21,9 +38,31 @@ const CartMenuProvider: FC<Props> = ({ children }) => {
   const addToCart = (cartItem: ICartItem) => {
     setCartItems(addToCartItems(cartItems, cartItem));
   };
+  const cartCount = useMemo(
+    () => cartItems.reduce((total, item) => total + item.quantity, 0),
+    [cartItems],
+  );
+  const totalCartPrice = useMemo(
+    () =>
+      cartItems.reduce((total, item) => total + item.quantity * item.price, 0),
+    [cartItems],
+  );
+  const removeItemFromCart = (item: ICartItem) => {
+    setCartItems(removeItem(cartItems, item));
+  };
+
   return (
     <CartDropDownMenuContext.Provider
-      value={{ isOpen, setIsOpen, cartItems, setCartItems, addToCart }}
+      value={{
+        isOpen,
+        setIsOpen,
+        cartItems,
+        setCartItems,
+        addToCart,
+        cartCount,
+        removeItemFromCart,
+        totalCartPrice,
+      }}
     >
       {children}
     </CartDropDownMenuContext.Provider>

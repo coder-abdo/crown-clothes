@@ -1,0 +1,75 @@
+.checkout {
+  padding: 4rem 3rem;
+  &__table {
+    max-width: 80%;
+    width: 100%;
+    margin: 0 auto;
+  }
+  &__header,
+  &__total,
+  &__item {
+    @include flex(space-between, center, row);
+    width: 100%;
+  }
+  &__total {
+    width: 100%;
+    padding: 2rem 0;
+    font: {
+      size: 1.8rem;
+      weight: 600;
+    }
+  }
+  .header {
+    padding: 2rem 0;
+    &__title {
+      font: {
+        size: clamp(1.6rem, 1.8rem, 2rem);
+        weight: 600;
+      }
+      text-transform: capitalize;
+      &:first-child {
+        width: 10rem;
+      }
+    }
+  }
+  .item {
+    color: darken($gray, 35%);
+    padding: 1rem 0;
+    border-bottom: 1px solid $gray;
+    &__name {
+      font: {
+        size: 2rem;
+        weight: 500;
+      }
+    }
+    &__price {
+      font-size: 1.8rem;
+    }
+    &__image {
+      width: 10rem;
+      height: 5rem;
+      object-fit: cover;
+    }
+    &__remove {
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+    &__quantity {
+      @include flex(center, flex-start, row);
+      gap: 0.5rem;
+      font: {
+        size: 2rem;
+        weight: 600;
+      }
+    }
+  }
+}
+.quantity {
+  &__content {
+    font-weight: 400;
+  }
+  &__increase,
+  &__decrease {
+    cursor: pointer;
+  }
+}
