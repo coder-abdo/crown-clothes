@@ -1,18 +1,18 @@
 .checkout {
   padding: 4rem 3rem;
+
   &__table {
     max-width: 80%;
     width: 100%;
     margin: 0 auto;
   }
-  &__header,
-  &__total,
-  &__item {
-    @include flex(space-between, center, row);
-    width: 100%;
+  &__header {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    place-items: center;
   }
   &__total {
-    width: 100%;
+    @include flex(space-between, center, row);
     padding: 2rem 0;
     font: {
       size: 1.8rem;
@@ -33,7 +33,11 @@
     }
   }
   .item {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    place-items: center;
     color: darken($gray, 35%);
+    flex-basis: 10rem;
     padding: 1rem 0;
     border-bottom: 1px solid $gray;
     &__name {

@@ -1,21 +1,13 @@
-import { useToggleCartMenu } from "@/contexts/cartDropDownMenuContext";
+import { useCheckout } from "@/hooks/useCheckout";
 import { ICartItem } from "@/types";
 import type { FC } from "react";
 interface Props {
   item: ICartItem;
 }
 export const CheckoutItem: FC<Props> = ({ item }) => {
-  const { removeItemFromCart, addToCart } = useToggleCartMenu();
   const { quantity, name, price, imageUrl } = item;
-  const handleRemoveItem = (cartItem: ICartItem) => {
-    removeItemFromCart(cartItem);
-  };
-  const handleIncreaseQuantity = (cartItem: ICartItem) => {
-    addToCart(cartItem);
-  };
-  const handleDecreaseQuantity = (cartItem: ICartItem) => {
-    removeItemFromCart(cartItem);
-  };
+  const { handleRemoveItem, handleIncreaseQuantity, handleDecreaseQuantity } =
+    useCheckout();
   return (
     <div className="checkout__item item">
       <img className="item__image" src={imageUrl} alt={name} />

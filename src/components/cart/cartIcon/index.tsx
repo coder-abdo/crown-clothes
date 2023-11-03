@@ -1,14 +1,10 @@
 import ShoppingCart from "@/assets/shopping-bag.svg";
-import { useToggleCartMenu } from "@/contexts/cartDropDownMenuContext";
-import { useCallback } from "react";
+import { useHandleCartIcon } from "@/hooks/useHandleCartIcon";
 export const CartIcon = () => {
-  const { setIsOpen, isOpen, cartCount } = useToggleCartMenu();
-  const handleClick = useCallback(() => {
-    setIsOpen(!isOpen);
-  }, [setIsOpen, isOpen]);
+ const {toggleMenu, cartCount} = useHandleCartIcon() 
 
   return (
-    <div className="cart-icon" onClick={handleClick}>
+    <div className="cart-icon" onClick={toggleMenu}>
       <img src={ShoppingCart} alt="shopping bag" className="cart-icon__icon" />
       <span className="cart-icon__quantity">{cartCount}</span>
     </div>
