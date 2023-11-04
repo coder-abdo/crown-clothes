@@ -27,6 +27,7 @@ interface ICartMenuContext {
   addToCart: (cartItem: ICartItem) => void;
   cartCount: number;
   removeItemFromCart: (cartItem: ICartItem) => void;
+  clearItemFromCart: (cartItem: ICartItem) => void;
   totalCartPrice: number;
 }
 interface ICartItem extends IShopProduct {

@@ -1,10 +1,11 @@
 import { useToggleCartMenu } from "@/contexts/cartDropDownMenuContext";
-import { ICartItem } from "@/types";
+import { ICartItem, ICartMenuContext } from "@/types";
 
 export const useCheckout = () => {
-  const { removeItemFromCart, addToCart } = useToggleCartMenu();
+  const { removeItemFromCart, addToCart, clearItemFromCart } =
+    useToggleCartMenu() as ICartMenuContext;
   const handleRemoveItem = (cartItem: ICartItem) => {
-    removeItemFromCart(cartItem);
+    clearItemFromCart(cartItem);
   };
   const handleIncreaseQuantity = (cartItem: ICartItem) => {
     addToCart(cartItem);

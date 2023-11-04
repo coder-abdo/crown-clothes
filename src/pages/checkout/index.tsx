@@ -1,8 +1,9 @@
 import { CheckoutItems } from "@/components/chekcout/checkoutItems";
 import { useToggleCartMenu } from "@/contexts/cartDropDownMenuContext";
+import { ICartMenuContext } from "@/types";
 
 const Checkout = () => {
-  const { cartItems, totalCartPrice } = useToggleCartMenu();
+  const { cartItems, totalCartPrice } = useToggleCartMenu() as ICartMenuContext;
   return (
     <main className="checkout">
       <h1 className="checkout__title">check out</h1>
@@ -18,7 +19,7 @@ const Checkout = () => {
           <CheckoutItems items={cartItems} />
           <footer className="checkout__total total">
             <span className="total__description">Total</span>
-            <span className="total__price">{totalCartPrice}</span>
+            <span className="total__price">&#65284;{totalCartPrice}</span>
           </footer>
         </section>
       ) : (

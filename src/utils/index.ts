@@ -47,6 +47,12 @@ export const addToCartItems = (
   // else
   return [...cartItems, { ...cartItem, quantity: 1 }];
 };
+export const clearItem = (
+  cartItems: ICartItem[],
+  cartItem: ICartItem,
+): ICartItem[] => {
+  return cartItems.filter((item) => item.id !== cartItem.id);
+};
 // remove cart itme from cart
 export const removeItem = (
   cartItems: ICartItem[],
@@ -55,7 +61,7 @@ export const removeItem = (
   // if cart item is existed
   const existedCartItem = cartItems.find((item) => item.id === cartItem.id);
   if (existedCartItem?.quantity === 1) {
-    return cartItems.filter((item) => item.id !== existedCartItem.id);
+    return clearItem(cartItems, cartItem);
   }
   return cartItems.map((item) => {
     if (item.id === cartItem.id) {

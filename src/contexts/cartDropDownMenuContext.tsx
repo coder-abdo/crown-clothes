@@ -1,5 +1,5 @@
 import { ICartItem, ICartMenuContext } from "@/types";
-import { addToCartItems, removeItem } from "@/utils";
+import { addToCartItems, clearItem, removeItem } from "@/utils";
 import {
   FC,
   ReactNode,
@@ -9,25 +9,7 @@ import {
   useState,
 } from "react";
 
-const CartDropDownMenuContext = createContext<ICartMenuContext>({
-  isOpen: false,
-  setIsOpen: () => {},
-  cartItems: [],
-  setCartItems: () => {},
-  addToCart: (cartItem: ICartItem) => {
-    console.log(cartItem);
-  },
-  cartCount: 0,
-  removeItemFromCart: (item: ICartItem) => {
-    console.log(item);
-  },
-  increaseQuantity: (cartItem: ICartItem) => {
-    console.log(cartItem);
-  },
-  decreaseQuantity: (cartItem: ICartItem) => {
-    console.log(cartItem);
-  },
-});
+const CartDropDownMenuContext = createContext<ICartMenuContext | null>(null);
 
 interface Props {
   children: ReactNode;
@@ -50,7 +32,9 @@ const CartMenuProvider: FC<Props> = ({ children }) => {
   const removeItemFromCart = (item: ICartItem) => {
     setCartItems(removeItem(cartItems, item));
   };
-
+  const clearItemFromCart = (item: ICartItem) => {
+    setCartItems(clearItem(cartItems, item));
+  };
   return (
     <CartDropDownMenuContext.Provider
       value={{
@@ -62,6 +46,7 @@ const CartMenuProvider: FC<Props> = ({ children }) => {
         cartCount,
         removeItemFromCart,
         totalCartPrice,
+        clearItemFromCart,
       }}
     >
       {children}
