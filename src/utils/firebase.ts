@@ -11,7 +11,7 @@ import {
   onAuthStateChanged,
   NextOrObserver,
 } from "firebase/auth";
-import { doc, getDoc, setDoc, getFirestore } from "firebase/firestore";
+import { doc, getDoc, setDoc, getFirestore, collection, writeBatch } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APIkEY,
   authDomain: import.meta.env.VITE_AUTHDOMAIN,
@@ -22,16 +22,16 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
   prompt: "select_account",
 });
 
-export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
-export const db = getFirestore();
-export const createUserFromAuth = async (
+const auth = getAuth();
+ const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+const db = getFirestore();
+const createUserFromAuth = async (
   userAuth: User,
   additionalInfo = {},
 ) => {
@@ -53,20 +53,32 @@ export const createUserFromAuth = async (
   }
   return userDocRef;
 };
-export const createUserFromEmailAndPassword = async (
+const createUserFromEmailAndPassword = async (
   email: string,
   password: string,
 ) => {
   const { user } = await createUserWithEmailAndPassword(auth, email, password);
   return user;
 };
-export const loginWithEmailAndPassword = async (
+const loginWithEmailAndPassword = async (
   email: string,
   password: string,
 ) => {
   const { user } = await signInWithEmailAndPassword(auth, email, password);
   return user;
 };
-export const signoutUser = async () => await signOut(auth);
-export const handleAuthChange = (cb: NextOrObserver<User>) =>
+ const signoutUser = async () => await signOut(auth);
+const handleAuthChange = (cb: NextOrObserver<User>) =>
   onAuthStateChanged(auth, cb);
+
+  const addCollectionsAndDocuments = async (collectionKey:string, collectionsToAdd:Document[]) =>{
+    const collectionRef = collection(db, collectionKey);
+    const batch = writeBatch(db)
+    collectionsToAdd.forEach(element => {
+           const docRef = doc(collectionRef, element.title.toLowerCase()) 
+           batch.set(docRef, element)
+    });
+    await batch.commit()
+    console.log("done")
+  }
+  export {signoutUser, handleAuthChange, loginWithEmailAndPassword, createUserFromEmailAndPassword, createUserFromAuth, auth, app, db, signInWithGooglePopup, addCollectionsAndDocuments}
