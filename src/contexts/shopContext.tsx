@@ -1,21 +1,43 @@
-import { IShopContext, IShopProduct } from "@/types";
-import { ReactNode, createContext, useContext, useState } from "react";
-import SHOPPRODUCTS from "@/assets/shop-data.json";
+import { ICategoriesContext, IShopData } from "@/types";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { getCategoriesDocument } from "@/utils/firebase";
 
-const ShopProductContext = createContext<IShopContext>({
-  shopProducts: [],
-  setShopProducts: () => [],
-});
+const CategoriesContext = createContext<ICategoriesContext | null>(null);
 type Props = {
   children: ReactNode;
 };
 export default function ShopContextProvider({ children }: Props) {
-  const [shopProducts, setShopProducts] =
-    useState<IShopProduct[]>(SHOPPRODUCTS);
+  const [categories, setCategories] = useState<IShopData>({});
+  const getCategories = async () => {
+    const categoriesMap = (await getCategoriesDocument()) as IShopData;
+    setCategories(categoriesMap);
+  };
+  useEffect(() => {
+    getCategories();
+  }, []);
+  const value = useMemo((): ICategoriesContext => {
+    return {
+      categories,
+      setCategories,
+    };
+  }, [categories]);
   return (
-    <ShopProductContext.Provider value={{ shopProducts, setShopProducts }}>
+    <CategoriesContext.Provider value={value}>
       {children}
-    </ShopProductContext.Provider>
+    </CategoriesContext.Provider>
   );
 }
-export const useShopProducts = () => useContext(ShopProductContext);
+export const useCategories = (): ICategoriesContext => {
+  const context = useContext(CategoriesContext);
+  if (!context) {
+    throw "no context";
+  }
+  return context;
+};

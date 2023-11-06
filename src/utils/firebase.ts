@@ -1,4 +1,5 @@
 // Import the functions you need from the SDKs you need
+import { IShopData } from "@/types";
 import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
@@ -11,7 +12,16 @@ import {
   onAuthStateChanged,
   NextOrObserver,
 } from "firebase/auth";
-import { doc, getDoc, setDoc, getFirestore, collection, writeBatch } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  setDoc,
+  getFirestore,
+  collection,
+  writeBatch,
+  query,
+  getDocs,
+} from "firebase/firestore";
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APIkEY,
   authDomain: import.meta.env.VITE_AUTHDOMAIN,
@@ -29,12 +39,9 @@ provider.setCustomParameters({
 });
 
 const auth = getAuth();
- const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 const db = getFirestore();
-const createUserFromAuth = async (
-  userAuth: User,
-  additionalInfo = {},
-) => {
+const createUserFromAuth = async (userAuth: User, additionalInfo = {}) => {
   const userDocRef = doc(db, "users", userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
   if (!userSnapshot.exists()) {
@@ -60,25 +67,49 @@ const createUserFromEmailAndPassword = async (
   const { user } = await createUserWithEmailAndPassword(auth, email, password);
   return user;
 };
-const loginWithEmailAndPassword = async (
-  email: string,
-  password: string,
-) => {
+const loginWithEmailAndPassword = async (email: string, password: string) => {
   const { user } = await signInWithEmailAndPassword(auth, email, password);
   return user;
 };
- const signoutUser = async () => await signOut(auth);
+const signoutUser = async () => await signOut(auth);
 const handleAuthChange = (cb: NextOrObserver<User>) =>
   onAuthStateChanged(auth, cb);
 
-  const addCollectionsAndDocuments = async (collectionKey:string, collectionsToAdd:Document[]) =>{
-    const collectionRef = collection(db, collectionKey);
-    const batch = writeBatch(db)
-    collectionsToAdd.forEach(element => {
-           const docRef = doc(collectionRef, element.title.toLowerCase()) 
-           batch.set(docRef, element)
-    });
-    await batch.commit()
-    console.log("done")
-  }
-  export {signoutUser, handleAuthChange, loginWithEmailAndPassword, createUserFromEmailAndPassword, createUserFromAuth, auth, app, db, signInWithGooglePopup, addCollectionsAndDocuments}
+const addCollectionsAndDocuments = async (
+  collectionKey: string,
+  collectionsToAdd: IShopData[],
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+  collectionsToAdd.forEach((element) => {
+    const docRef = doc(collectionRef, element.title.toLowerCase());
+    batch.set(docRef, element);
+  });
+  await batch.commit();
+  console.log("done");
+};
+const getCategoriesDocument = async () => {
+  const collectionRef = collection(db, "categories");
+  const queryRef = query(collectionRef);
+  const querySnapshots = await getDocs(queryRef);
+  const categoriesDocs = querySnapshots.docs.reduce((acc, docSnapShot) => {
+    const { title, items } = docSnapShot.data();
+    const targetTitle = title.toLowerCase();
+    acc[targetTitle] = items;
+    return acc;
+  }, {});
+  return categoriesDocs;
+};
+export {
+  signoutUser,
+  handleAuthChange,
+  loginWithEmailAndPassword,
+  createUserFromEmailAndPassword,
+  createUserFromAuth,
+  auth,
+  app,
+  db,
+  signInWithGooglePopup,
+  addCollectionsAndDocuments,
+  getCategoriesDocument,
+};

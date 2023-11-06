@@ -1,10 +1,7 @@
 import { ShopProducts } from "@/components/shop/shopProducts";
-import { useShopProducts } from "@/contexts/shopContext";
 
 function Shop() {
-  const { shopProducts } = useShopProducts();
-  console.log("shop page");
-  return <ShopProducts products={shopProducts} />;
+  return <ShopProducts />;
 }
 
 export default Shop;

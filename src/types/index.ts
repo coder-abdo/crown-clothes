@@ -11,9 +11,17 @@ interface IShopProduct {
   name: string;
   price: number;
 }
+interface IShopData {
+  title: string;
+  items: IShopProduct[];
+}
 interface IShopContext {
   shopProducts: IShopProduct[];
   setShopProducts: Dispatch<IShopProduct[]>;
+}
+interface ICategoriesContext {
+  categories: IShopData;
+  setCategories: Dispatch<IShopData>;
 }
 interface IUserContext {
   currentUser: User | null;
@@ -40,4 +48,6 @@ export type {
   CategoryType,
   ICartMenuContext,
   ICartItem,
+  IShopData,
+  ICategoriesContext,
 };
