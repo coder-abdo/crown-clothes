@@ -1,7 +1,7 @@
 import { ShopProducts } from "@/components/shop/shopProducts";
 
 function Shop() {
-  return <ShopProducts />;
+  return (<ShopProducts />);
 }
 
 export default Shop;

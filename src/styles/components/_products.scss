@@ -1,10 +1,10 @@
 .products {
-  padding: 2rem;
+  padding: 2rem 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 2rem;
   @media screen and (max-width: 52em) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   @media screen and (max-width: 25em) {
     grid-template-columns: 1fr;
