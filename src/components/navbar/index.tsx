@@ -1,11 +1,12 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import Crown from "@/assets/crown.png";
 import { useCurrentUser } from "@/contexts/userContext";
 import { signoutUser } from "@/utils/firebase";
 import { CartIcon } from "@/components/cart/cartIcon";
 import { CartDropDownMenu } from "@/components/cart/cartDropDownMenu";
+import { IUserContext } from "@/types";
 const Navbar = () => {
-  const { currentUser, setCurrentUser } = useCurrentUser();
+  const { currentUser, setCurrentUser } = useCurrentUser() as IUserContext;
   const handleSignout = async () => {
     await signoutUser();
     setCurrentUser(null);
@@ -19,10 +20,10 @@ const Navbar = () => {
       </div>
       <ul className="nav__list list">
         <li className="list__item">
-          <NavLink to={"/shop"}>Shop</NavLink>
+          <Link to={"/shop"}>Shop</Link>
         </li>
         <li className="list__item">
-          <NavLink to={"/contact"}>Contact</NavLink>
+          <Link to={"/contact"}>Contact</Link>
         </li>
         {currentUser ? (
           <li className="list__item" onClick={handleSignout}>
@@ -30,11 +31,11 @@ const Navbar = () => {
           </li>
         ) : (
           <li className="list__item">
-            <NavLink to={"/sign-in"}>Sign In</NavLink>
+            <Link to={"/sign-in"}>Sign In</Link>
           </li>
         )}
         <li className="list__item">
-          <NavLink to={"/cart"}>cart</NavLink>
+          <Link to={"/cart"}>cart</Link>
         </li>
         <li className="list__item">
           <CartIcon />

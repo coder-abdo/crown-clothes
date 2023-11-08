@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { FirebaseError } from "firebase/app";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 import { signupSchema } from "@/utils/forms";
 import {
   createUserFromAuth,
@@ -30,7 +30,7 @@ export const useSignupForm = () => {
       );
       await createUserFromAuth(user, { displayName: data.displayName });
       toast.success("success created user");
-      navigate("/");
+      navigate({ to: "/" });
     } catch (error) {
       if (error instanceof FirebaseError) {
         if (error.code === ALREADYEXISTEMAILERR) {

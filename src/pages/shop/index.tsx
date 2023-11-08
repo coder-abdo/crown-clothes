@@ -1,7 +1,11 @@
-import { ShopProducts } from "@/components/shop/shopProducts";
+import { Outlet } from "@tanstack/react-router";
 
 function Shop() {
-  return (<ShopProducts />);
+  return (
+    <>
+      <Outlet />
+    </>
+  );
 }
 
 export default Shop;

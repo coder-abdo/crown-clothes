@@ -2,10 +2,9 @@ import { FirebaseError } from "firebase/app";
 import { AuthErrorCodes } from "firebase/auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import {
-  createUserFromAuth,
   loginWithEmailAndPassword,
   signInWithGooglePopup,
 } from "@/utils/firebase";
@@ -18,9 +17,9 @@ export const useSignInForm = () => {
   const INVALID_LOGIN_CREDENTIALS = "auth/invalid-login-credentials";
   const navigate = useNavigate();
   const signInWithGoogle = async () => {
-     await signInWithGooglePopup();
+    await signInWithGooglePopup();
     toast.success("success login with google");
-    navigate("/");
+    navigate({ to: "/" });
   };
   const {
     register,
@@ -35,7 +34,7 @@ export const useSignInForm = () => {
     try {
       await loginWithEmailAndPassword(data.email, data.password);
       toast.success("success login");
-      navigate("/");
+      navigate({ to: "/" });
     } catch (error) {
       if (error instanceof FirebaseError) {
         if (

@@ -3,7 +3,6 @@ import { FormControl } from "@/components/forms/formContainer";
 
 export const SignUp = () => {
   const { errors, register, handleSignUp, handleSubmit } = useSignupForm();
-  console.log(errors);
   return (
     <form
       className="form"
