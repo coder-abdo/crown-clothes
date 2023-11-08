@@ -5,6 +5,9 @@
       weight: 700;
     }
     text-transform: uppercase;
+    &--center {
+      text-align: center;
+    }
   }
 }
 .category {
