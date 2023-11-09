@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 
 const ErrorPage = () => {
   const navigate = useNavigate();
@@ -8,10 +8,7 @@ const ErrorPage = () => {
       <p className="page-error__description">
         the page you are looking is Not Found
       </p>
-      <button
-        className="btn btn__back"
-        onClick={() => navigate("/", { replace: true })}
-      >
+      <button className="btn btn__back" onClick={() => navigate({ to: "/" })}>
         back to home
       </button>
     </main>
