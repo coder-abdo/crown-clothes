@@ -1,0 +1,16 @@
+.page-error {
+  @include flex(center, center, column);
+  gap: 2rem;
+  min-height: 100vh;
+  &__title {
+    font: {
+      size: clamp(2rem, 2.5rem, 3rem);
+      weight: 700;
+    }
+    text-transform: capitalize;
+  }
+  &__description {
+    font-size: 1.8rem;
+    text-transform: capitalize;
+  }
+}

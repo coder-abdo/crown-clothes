@@ -13,7 +13,8 @@ import {
   Router,
   RouterProvider,
 } from "@tanstack/react-router";
-import { ShopIndexPage } from "./pages/shop/IndexPage";
+import { ShopIndexPage } from "@/pages/shop/IndexPage";
+import ErrorPage from "@/pages/errorPage";
 function App() {
   const rootRoute = new RootRoute({
     component: Root,
@@ -43,6 +44,11 @@ function App() {
     path: "$category",
     component: Category,
   });
+  const notFoundRoute = new Route({
+    getParentRoute: () => rootRoute,
+    path: '*',
+    component: ErrorPage
+  })
   const shopIndexRoute = new Route({
     getParentRoute: () => shopRoute,
     path: "/",
@@ -53,6 +59,7 @@ function App() {
     shopRoute.addChildren([shopIndexRoute, categoryRoute]),
     authRoute,
     checkoutRoute,
+    notFoundRoute
   ]);
   const router = new Router({ routeTree });
 
