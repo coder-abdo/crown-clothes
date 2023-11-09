@@ -33,5 +33,6 @@ const UserProvider: FC<Props> = ({ children }) => {
   );
 };
 
-export const useCurrentUser = () => useContext(UserContext);
+export const useCurrentUser = (): IUserContext | null =>
+  useContext(UserContext);
 export default UserProvider;

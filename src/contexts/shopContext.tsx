@@ -14,7 +14,10 @@ type Props = {
   children: ReactNode;
 };
 export default function ShopContextProvider({ children }: Props) {
-  const [categories, setCategories] = useState<IShopData>({});
+  const [categories, setCategories] = useState<IShopData>({
+    title: "",
+    items: [],
+  });
   const getCategories = async () => {
     const categoriesMap = (await getCategoriesDocument()) as IShopData;
     setCategories(categoriesMap);
