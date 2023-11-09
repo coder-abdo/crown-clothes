@@ -3,7 +3,7 @@ import { useCategory } from "@/hooks/useCategory";
 import { useParams } from "@tanstack/react-router";
 
 export const Category = () => {
-  const { category } = useParams({});
+  const { category } = useParams({ from: "" });
   const { products } = useCategory(category);
   return (
     <div className="category__preview">
