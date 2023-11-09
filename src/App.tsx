@@ -1,6 +1,5 @@
 import Root from "@/components/outlet";
 import Home from "@/pages/home";
-import ErrorPage from "@/pages/errorPage";
 import Shop from "@/pages/shop";
 import Auth from "@/pages/auth";
 import UserProvider from "@/contexts/userContext";
