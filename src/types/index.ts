@@ -24,19 +24,20 @@ interface ICategoriesContext {
   setCategories: Dispatch<IShopData>;
 }
 interface IUserContext {
-  currentUser: User | null;
-  setCurrentUser: Dispatch<User | null>;
+  state: { currentUser: User | null };
+  setCurrentUser: (user: User | null) => void;
 }
 interface ICartMenuContext {
-  isOpen: boolean;
-  setIsOpen: Dispatch<boolean>;
-  cartItems: ICartItem[];
-  setCartItems: Dispatch<ICartItem[]>;
+  state: {
+    isOpen: boolean;
+    cartItems: ICartItem[];
+  };
   addToCart: (cartItem: ICartItem) => void;
   cartCount: number;
   removeItemFromCart: (cartItem: ICartItem) => void;
   clearItemFromCart: (cartItem: ICartItem) => void;
   totalCartPrice: number;
+  toggleCartMenu: () => void;
 }
 interface ICartItem extends IShopProduct {
   quantity: number;

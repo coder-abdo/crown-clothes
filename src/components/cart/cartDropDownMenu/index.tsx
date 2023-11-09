@@ -4,7 +4,9 @@ import { Link } from "@tanstack/react-router";
 import { ICartMenuContext } from "@/types";
 
 export const CartDropDownMenu = () => {
-  const { isOpen, cartItems } = useToggleCartMenu() as ICartMenuContext;
+  const {
+    state: { cartItems, isOpen },
+  } = useToggleCartMenu() as ICartMenuContext;
   return (
     <div className={`cart-dropdownmenu ${isOpen ? "show" : ""}`}>
       <CartItems cartItems={cartItems} />

@@ -3,10 +3,11 @@ import { addToCartItems, clearItem, removeItem } from "@/utils";
 import {
   FC,
   ReactNode,
+  Reducer,
   createContext,
   useContext,
   useMemo,
-  useState,
+  useReducer,
 } from "react";
 
 const CartDropDownMenuContext = createContext<ICartMenuContext | null>(null);
@@ -14,41 +15,85 @@ const CartDropDownMenuContext = createContext<ICartMenuContext | null>(null);
 interface Props {
   children: ReactNode;
 }
+type State = {
+  isOpen: boolean;
+  cartItems: ICartItem[];
+};
+type Action =
+  | { type: "TOGGLE_OPEN" }
+  | { type: "ADD_TO_CARTITEMS"; payload: ICartItem }
+  | { type: "REMOVE_ITEM_FROM_CART"; payload: ICartItem }
+  | { type: "CLEAR_ITEM_FROM_CART"; payload: ICartItem };
+
+const cartReducer: Reducer<State, Action> = (state, action) => {
+  switch (action.type) {
+    case "TOGGLE_OPEN":
+      return {
+        ...state,
+        isOpen: !state.isOpen,
+      };
+    case "ADD_TO_CARTITEMS":
+      return {
+        ...state,
+        cartItems: addToCartItems(state.cartItems, action.payload),
+      };
+    case "REMOVE_ITEM_FROM_CART":
+      return {
+        ...state,
+        cartItems: removeItem(state.cartItems, action.payload),
+      };
+    case "CLEAR_ITEM_FROM_CART":
+      return {
+        ...state,
+        cartItems: clearItem(state.cartItems, action.payload),
+      };
+    default:
+      return state;
+  }
+};
+const initialState: State = {
+  isOpen: false,
+  cartItems: [],
+};
 const CartMenuProvider: FC<Props> = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<ICartItem[]>([]);
+  const [state, dispatch] = useReducer(cartReducer, initialState);
   const addToCart = (cartItem: ICartItem) => {
-    setCartItems(addToCartItems(cartItems, cartItem));
+    dispatch({ type: "ADD_TO_CARTITEMS", payload: cartItem });
+  };
+  const toggleCartMenu = () => {
+    dispatch({ type: "TOGGLE_OPEN" });
   };
   const cartCount = useMemo(
-    () => cartItems.reduce((total, item) => total + item.quantity, 0),
-    [cartItems],
+    () => state.cartItems.reduce((total, item) => total + item.quantity, 0),
+    [state.cartItems],
   );
   const totalCartPrice = useMemo(
     () =>
-      cartItems.reduce((total, item) => total + item.quantity * item.price, 0),
-    [cartItems],
+      state.cartItems.reduce(
+        (total, item) => total + item.quantity * item.price,
+        0,
+      ),
+    [state.cartItems],
   );
   const removeItemFromCart = (item: ICartItem) => {
-    setCartItems(removeItem(cartItems, item));
+    dispatch({ type: "REMOVE_ITEM_FROM_CART", payload: item });
   };
   const clearItemFromCart = (item: ICartItem) => {
-    setCartItems(clearItem(cartItems, item));
+    dispatch({ type: "CLEAR_ITEM_FROM_CART", payload: item });
   };
+  const value = useMemo(() => {
+    return {
+      state,
+      cartCount,
+      totalCartPrice,
+      addToCart,
+      removeItemFromCart,
+      clearItemFromCart,
+      toggleCartMenu,
+    };
+  }, [state, cartCount, totalCartPrice]);
   return (
-    <CartDropDownMenuContext.Provider
-      value={{
-        isOpen,
-        setIsOpen,
-        cartItems,
-        setCartItems,
-        addToCart,
-        cartCount,
-        removeItemFromCart,
-        totalCartPrice,
-        clearItemFromCart,
-      }}
-    >
+    <CartDropDownMenuContext.Provider value={value}>
       {children}
     </CartDropDownMenuContext.Provider>
   );

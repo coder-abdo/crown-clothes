@@ -3,7 +3,7 @@ import { useToggleCartMenu } from "@/contexts/cartDropDownMenuContext";
 import { ICartMenuContext } from "@/types";
 
 const Checkout = () => {
-  const { cartItems, totalCartPrice } = useToggleCartMenu() as ICartMenuContext;
+  const { state:{cartItems}, totalCartPrice } = useToggleCartMenu() as ICartMenuContext;
   return (
     <main className="checkout">
       <h1 className="checkout__title">check out</h1>

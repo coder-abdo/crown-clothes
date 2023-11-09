@@ -6,7 +6,7 @@ import { CartIcon } from "@/components/cart/cartIcon";
 import { CartDropDownMenu } from "@/components/cart/cartDropDownMenu";
 import { IUserContext } from "@/types";
 const Navbar = () => {
-  const { currentUser, setCurrentUser } = useCurrentUser() as IUserContext;
+  const { state, setCurrentUser } = useCurrentUser() as IUserContext;
   const handleSignout = async () => {
     await signoutUser();
     setCurrentUser(null);
@@ -25,7 +25,7 @@ const Navbar = () => {
         <li className="list__item">
           <Link to={"/contact"}>Contact</Link>
         </li>
-        {currentUser ? (
+        {state.currentUser ? (
           <li className="list__item" onClick={handleSignout}>
             Logout
           </li>
