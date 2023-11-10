@@ -3,11 +3,11 @@ import Crown from "@/assets/crown.png";
 import { signoutUser } from "@/utils/firebase";
 import { CartIcon } from "@/components/cart/cartIcon";
 import { CartDropDownMenu } from "@/components/cart/cartDropDownMenu";
-import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "@/store/user/userActions";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 const Navbar = () => {
-  const { currentUser } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const { currentUser } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   const handleSignout = async () => {
     await signoutUser();
     dispatch(setCurrentUser(null));
