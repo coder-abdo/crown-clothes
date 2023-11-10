@@ -1,15 +1,16 @@
 import { Link } from "@tanstack/react-router";
 import Crown from "@/assets/crown.png";
-import { useCurrentUser } from "@/contexts/userContext";
 import { signoutUser } from "@/utils/firebase";
 import { CartIcon } from "@/components/cart/cartIcon";
 import { CartDropDownMenu } from "@/components/cart/cartDropDownMenu";
-import { IUserContext } from "@/types";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser } from "@/store/user/userActions";
 const Navbar = () => {
-  const { state, setCurrentUser } = useCurrentUser() as IUserContext;
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const handleSignout = async () => {
     await signoutUser();
-    setCurrentUser(null);
+    dispatch(setCurrentUser(null));
   };
   return (
     <nav className="nav">
@@ -25,7 +26,7 @@ const Navbar = () => {
         <li className="list__item">
           <Link to={"/contact"}>Contact</Link>
         </li>
-        {state.currentUser ? (
+        {currentUser ? (
           <li className="list__item" onClick={handleSignout}>
             Logout
           </li>
