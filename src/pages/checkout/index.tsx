@@ -1,9 +1,10 @@
 import { CheckoutItems } from "@/components/chekcout/checkoutItems";
-import { useToggleCartMenu } from "@/contexts/cartDropDownMenuContext";
-import { ICartMenuContext } from "@/types";
+import { useAppSelector } from "@/hooks/redux";
+import { useCart } from "@/hooks/useCart";
 
 const Checkout = () => {
-  const { state:{cartItems}, totalCartPrice } = useToggleCartMenu() as ICartMenuContext;
+  const { totalCartPrice } = useCart();
+  const { cartItems } = useAppSelector((state) => state.cart);
   return (
     <main className="checkout">
       <h1 className="checkout__title">check out</h1>

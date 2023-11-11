@@ -1,12 +1,12 @@
-import { useCategories } from "@/contexts/shopContext";
 import { IShopProduct } from "@/types";
 import { useEffect, useState } from "react";
+import { useAppSelector } from "./redux";
 
 export const useCategory = (slug: string) => {
   const [products, setProducts] = useState<IShopProduct[]>([]);
-  const { categories } = useCategories();
+  const { category } = useAppSelector((state) => state.category);
   useEffect(() => {
-    setProducts(categories[slug]);
-  }, [slug, categories]);
+    setProducts(category[slug]);
+  }, [slug, category]);
   return { products };
 };

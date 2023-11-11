@@ -1,17 +1,18 @@
-import { useToggleCartMenu } from "@/contexts/cartDropDownMenuContext";
 import { CartItems } from "@/components/cart/cartItems";
-import { Link } from "@tanstack/react-router";
-import { ICartMenuContext } from "@/types";
+import { useNavigate } from "@tanstack/react-router";
+import { useAppSelector } from "@/hooks/redux";
 
 export const CartDropDownMenu = () => {
-  const {
-    state: { cartItems, isOpen },
-  } = useToggleCartMenu() as ICartMenuContext;
+  const { cartItems, isOpen } = useAppSelector((state) => state.cart);
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate({ to: "/checkout" });
+  };
   return (
     <div className={`cart-dropdownmenu ${isOpen ? "show" : ""}`}>
       <CartItems cartItems={cartItems} />
-      <button className="btn">
-        <Link to={"/checkout"}>check out</Link>
+      <button className="btn" role="link" onClick={handleClick}>
+        Check out
       </button>
     </div>
   );

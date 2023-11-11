@@ -1,4 +1,7 @@
 import { useToggleCartMenu } from "@/contexts/cartDropDownMenuContext";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useCheckout } from "@/hooks/useCheckout";
+import { addToCart } from "@/store/cart/cartActions";
 import { ICartItem, ICartMenuContext, IShopProduct } from "@/types";
 import { FC } from "react";
 
@@ -6,9 +9,10 @@ interface Props {
   product: IShopProduct;
 }
 export const ShopProduct: FC<Props> = ({ product }) => {
-  const { addToCart } = useToggleCartMenu() as ICartMenuContext;
+  const { cartItems } = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
   const handleClick = (item: ICartItem) => {
-    addToCart(item);
+    dispatch(addToCart(cartItems, item));
   };
   return (
     <div className="product">

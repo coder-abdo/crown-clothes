@@ -1,17 +1,22 @@
-import { useToggleCartMenu } from "@/contexts/cartDropDownMenuContext";
-import { ICartItem, ICartMenuContext } from "@/types";
+import { ICartItem } from "@/types";
+import { useAppDispatch, useAppSelector } from "./redux";
+import {
+  removeItemFromCart,
+  addToCart,
+  deleteCartItem,
+} from "@/store/cart/cartActions";
 
 export const useCheckout = () => {
-  const { removeItemFromCart, addToCart, clearItemFromCart } =
-    useToggleCartMenu() as ICartMenuContext;
+  const dispatch = useAppDispatch();
+  const { cartItems } = useAppSelector((state) => state.cart);
   const handleRemoveItem = (cartItem: ICartItem) => {
-    clearItemFromCart(cartItem);
+    dispatch(deleteCartItem(cartItems, cartItem));
   };
   const handleIncreaseQuantity = (cartItem: ICartItem) => {
-    addToCart(cartItem);
+    dispatch(addToCart(cartItems, cartItem));
   };
   const handleDecreaseQuantity = (cartItem: ICartItem) => {
-    removeItemFromCart(cartItem);
+    dispatch(removeItemFromCart(cartItems, cartItem));
   };
   return { handleDecreaseQuantity, handleIncreaseQuantity, handleRemoveItem };
 };

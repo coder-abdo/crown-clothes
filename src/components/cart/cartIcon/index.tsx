@@ -1,8 +1,7 @@
 import ShoppingCart from "@/assets/shopping-bag.svg";
-import { useToggleCartMenu } from "@/contexts/cartDropDownMenuContext";
-import { ICartMenuContext } from "@/types";
+import { useCart } from "@/hooks/useCart";
 export const CartIcon = () => {
-  const { cartCount, toggleCartMenu } = useToggleCartMenu() as ICartMenuContext;
+  const { cartCount, toggleCartMenu } = useCart();
 
   return (
     <div className="cart-icon" onClick={toggleCartMenu}>
