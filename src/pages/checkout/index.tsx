@@ -1,10 +1,15 @@
 import { CheckoutItems } from "@/components/chekcout/checkoutItems";
 import { useAppSelector } from "@/hooks/redux";
 import { useCart } from "@/hooks/useCart";
+import { Navigate } from "@tanstack/react-router";
 
 const Checkout = () => {
   const { totalCartPrice } = useCart();
   const { cartItems } = useAppSelector((state) => state.cart);
+  const { currentUser } = useAppSelector((state) => state.user);
+  if (!currentUser) {
+    return <Navigate to={"/sign-in"} />;
+  }
   return (
     <main className="checkout">
       <h1 className="checkout__title">check out</h1>
