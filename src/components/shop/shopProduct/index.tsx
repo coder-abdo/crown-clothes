@@ -1,8 +1,6 @@
-import { useToggleCartMenu } from "@/contexts/cartDropDownMenuContext";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { useCheckout } from "@/hooks/useCheckout";
 import { addToCart } from "@/store/cart/cartActions";
-import { ICartItem, ICartMenuContext, IShopProduct } from "@/types";
+import { ICartItem, IShopProduct } from "@/types";
 import { FC } from "react";
 
 interface Props {
