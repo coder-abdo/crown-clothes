@@ -6,8 +6,10 @@ import {
   getCategoriesDocument,
   handleAuthChange,
 } from "@/utils/firebase";
+
 import { setCurrentUser } from "@/store/user/userActions";
 import { createCategory } from "@/store/categories/categoriesActions";
+
 import { useAppDispatch } from "@/hooks/redux";
 
 import { IShopData } from "@/types";
