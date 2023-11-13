@@ -1,16 +1,20 @@
 import { IShopData } from "@/types";
 import { AnyAction, Reducer } from "redux";
-import { CREATE_CATEGORIES } from "./categoriesActionTypes";
+import { CREATE_CATEGORIES, CategoryTypes } from "./categoriesActionTypes";
 
 type State = {
+  isLoading: boolean;
   category: IShopData;
+  errorMessage: string;
 };
 
 const initialState: State = {
+  isLoading: false,
   category: {
     title: "",
     items: [],
   },
+  errorMessage: "",
 };
 
 export const categoryReducer: Reducer<State, AnyAction> = (
@@ -18,10 +22,22 @@ export const categoryReducer: Reducer<State, AnyAction> = (
   action,
 ) => {
   switch (action.type) {
-    case CREATE_CATEGORIES:
+    case CategoryTypes.createCategoryLoading:
       return {
         ...state,
+        isLoading: true,
+      };
+    case CategoryTypes.createCategorySuccess:
+      return {
+        ...state,
+        isLoading: false,
         category: action.payload,
+      };
+    case CategoryTypes.createCategoryFailed:
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: action.payload,
       };
     default:
       return state;

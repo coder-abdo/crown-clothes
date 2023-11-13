@@ -1,0 +1,4 @@
+.loader {
+  @include flex(center, center, row);
+  min-height: 100vh;
+}

@@ -1,27 +1,18 @@
 import { useEffect } from "react";
 import { RouterProvider } from "@tanstack/react-router";
 
-import {
-  createUserFromAuth,
-  getCategoriesDocument,
-  handleAuthChange,
-} from "@/utils/firebase";
+import { createUserFromAuth, handleAuthChange } from "@/utils/firebase";
 
 import { setCurrentUser } from "@/store/user/userActions";
-import { createCategory } from "@/store/categories/categoriesActions";
+import { fetchCategories } from "@/store/categories/categoriesActions";
 
 import { useAppDispatch } from "@/hooks/redux";
-
-import { IShopData } from "@/types";
 
 import { router } from "@/routers";
 
 function App() {
   const dispatch = useAppDispatch();
-  const getCategories = async () => {
-    const categoriesMap = (await getCategoriesDocument()) as IShopData;
-    dispatch(createCategory(categoriesMap));
-  };
+
   useEffect(() => {
     const unsubscribe = handleAuthChange((user) => {
       if (user) {
@@ -33,7 +24,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    getCategories();
+    dispatch(fetchCategories());
   }, []);
   return <RouterProvider router={router} />;
 }

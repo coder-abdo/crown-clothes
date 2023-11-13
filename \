@@ -2,6 +2,9 @@ import { IShopData } from "@/types";
 import { createAction } from "@/utils/reducers";
 import { CategoryTypes } from "./categoriesActionTypes";
 import { getCategoriesDocument } from "@/utils/firebase";
+import { AnyAction, Dispatch } from "redux";
+import { ThunkDispatch } from "redux-thunk";
+import { RootState } from "../store";
 
 const createCategorySuccess = (category: IShopData) => {
   return createAction(CategoryTypes.createCategorySuccess, category);
@@ -16,7 +19,7 @@ const createCategoryFaild = (errorMessage: string) => {
 };
 
 export const fetchCategories = () => {
-  return async (dispatch): Promise<void> => {
+  return async (dispatch: Dispatch) => {
     dispatch(createCategoryLoading());
     try {
       const categoriesMap = (await getCategoriesDocument()) as IShopData;

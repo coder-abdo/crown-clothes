@@ -1,8 +1,15 @@
-import { Middleware, applyMiddleware, compose, createStore } from "redux";
+import {
+  AnyAction,
+  Middleware,
+  applyMiddleware,
+  compose,
+  createStore,
+} from "redux";
 import logger from "redux-logger";
-import { rootReducer } from "@/store/rootReudcer";
+import thunk, { ThunkDispatch } from "redux-thunk";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { rootReducer } from "@/store/rootReudcer";
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
@@ -11,9 +18,9 @@ declare global {
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["user"],
+  whitelist: ["cart"],
 };
-const middlewares = [import.meta.env.DEV && logger].filter(
+const middlewares = [import.meta.env.DEV && logger, thunk].filter(
   (middleware): middleware is Middleware => Boolean(middleware),
 );
 const composeEnhacer =
@@ -29,5 +36,7 @@ export const store = createStore(
   composeEnhancers,
 );
 export const persistor = persistStore(store);
+export type TypedDispatch<T> = ThunkDispatch<T, void, AnyAction>;
 export type AppDispatch = typeof store.dispatch;
+
 export type RootState = ReturnType<typeof store.getState>;
