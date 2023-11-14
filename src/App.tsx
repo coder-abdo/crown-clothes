@@ -4,7 +4,9 @@ import { RouterProvider } from "@tanstack/react-router";
 import { createUserFromAuth, handleAuthChange } from "@/utils/firebase";
 
 import { setCurrentUser } from "@/store/user/userActions";
-import { fetchCategories } from "@/store/categories/categoriesActions";
+import {
+  createCategoryLoading,
+} from "@/store/categories/categoriesActions";
 
 import { useAppDispatch } from "@/hooks/redux";
 
@@ -24,7 +26,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    dispatch(createCategoryLoading());
   }, []);
   return <RouterProvider router={router} />;
 }

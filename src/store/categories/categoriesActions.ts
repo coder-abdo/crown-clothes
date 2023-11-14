@@ -7,7 +7,7 @@ const createCategorySuccess = (category: IShopData) => {
   return createAction(CategoryTypes.createCategorySuccess, category);
 };
 
-const createCategoryLoading = () => {
+export const createCategoryLoading = () => {
   return createAction(CategoryTypes.createCategoryLoading, null);
 };
 

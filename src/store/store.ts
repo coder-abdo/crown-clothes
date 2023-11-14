@@ -6,10 +6,13 @@ import {
   createStore,
 } from "redux";
 import logger from "redux-logger";
-import thunk, { ThunkDispatch } from "redux-thunk";
+// import thunk, { ThunkDispatch } from "redux-thunk";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import createSagaMiddleware from "redux-saga";
 import { rootReducer } from "@/store/rootReudcer";
+import { rootSagta } from "@/store/rootReudcer/rootSaga";
+import { Dispatch } from "react";
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
@@ -20,7 +23,9 @@ const persistConfig = {
   storage,
   whitelist: ["cart"],
 };
-const middlewares = [import.meta.env.DEV && logger, thunk].filter(
+
+const sagaMiddleware = createSagaMiddleware();
+const middlewares = [import.meta.env.DEV && logger, sagaMiddleware].filter(
   (middleware): middleware is Middleware => Boolean(middleware),
 );
 const composeEnhacer =
@@ -35,8 +40,9 @@ export const store = createStore(
   undefined,
   composeEnhancers,
 );
+sagaMiddleware.run(rootSagta);
 export const persistor = persistStore(store);
-export type TypedDispatch<T> = ThunkDispatch<T, void, AnyAction>;
+export type TypedDispatch = Dispatch<AnyAction>;
 export type AppDispatch = typeof store.dispatch;
 
 export type RootState = ReturnType<typeof store.getState>;
