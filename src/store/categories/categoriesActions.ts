@@ -1,6 +1,6 @@
 import { IShopData } from "@/types";
 import { createAction } from "@/utils/reducers";
-import { CategoryTypes } from "./categoriesActionTypes";
+import { CategoryTypes } from "@/store/categories/categoriesActionTypes";
 import { getCategoriesDocument } from "@/utils/firebase";
 
 const createCategorySuccess = (category: IShopData) => {

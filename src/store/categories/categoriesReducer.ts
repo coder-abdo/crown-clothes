@@ -1,6 +1,6 @@
 import { IShopData } from "@/types";
 import { AnyAction, Reducer } from "redux";
-import { CREATE_CATEGORIES, CategoryTypes } from "./categoriesActionTypes";
+import { CategoryTypes } from "@/store/categories/categoriesActionTypes";
 
 type State = {
   isLoading: boolean;
